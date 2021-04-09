@@ -1,22 +1,36 @@
 //declaring router
 const router = require("express").Router();
 
+const bcrypt = require("bcrypt");
+
 //importing models
 const User = require("../models/user");
 
-const Joi = require("joi");
+//validation
+const { registerValidation } = require("../validation");
 
-const schema = Joi.object({
-	name: Joi.string().min(6).required(),
-	email: Joi.string().min(6).required().email(),
-	admin: Joi.boolean().required(),
-	password: Joi.string().min(6).required(),
-});
-
-router.post("/", (req, res) => {
-	const { error } = schema.validate(req.body);
+router.post("/register", async (req, res) => {
+	const { error } = registerValidation(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
-	res.status(200).send();
+
+	const userExist = await User.findOne({ email: req.body.email });
+	if (userExist) return res.status(400).send("The Email already exists");
+
+	const salt = await bcrypt.genSalt(10);
+	const hashedPass = await bcrypt.hash(req.body.password, salt);
+
+	const user = new User({
+		username: req.body.username,
+		email: req.body.email,
+		password: hashedPass,
+		admin: req.body.admin,
+	});
+	try {
+		const savedUser = await user.save();
+		res.status(200).send(savedUser);
+	} catch (error) {
+		res.status(400).send(error);
+	}
 });
 
 module.exports = router;
