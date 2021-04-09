@@ -21,6 +21,9 @@ const PORT = 5000;
 //Import Routes
 const authRouter = require("./routes/auth");
 
+//Middleware
+app.use(express.json());
+
 //Route Middleware
 app.use("/fablei/user", authRouter);
 
