@@ -2,6 +2,19 @@
 const express = require("express");
 const app = express();
 
+const dotenv = require("dotenv");
+dotenv.config();
+
+//mongoDB connection
+const mongoose = require("mongoose");
+mongoose.connect(
+	process.env.DB_CONNECT,
+	{ useNewUrlParser: true, useUnifiedTopology: true },
+	() => {
+		console.log("Connected");
+	}
+);
+
 //Port config
 const PORT = 5000;
 
