@@ -9,7 +9,10 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 //validation
-const { registerValidation, loginValidation } = require("../validation");
+const {
+	registerValidation,
+	loginValidation,
+} = require("../middleware/validation");
 
 router.post("/register", async (req, res) => {
 	const { error } = registerValidation(req.body);
