@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
 	const token = jwt.sign(
 		{ _id: user._id, admin: user.admin },
 		process.env.TOKEN_SECRET
-	);
+	); //token will be be saved in the localstorage
 
 	res.header("auth-token", token).status(200).send("Logged In");
 });
