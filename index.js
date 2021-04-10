@@ -20,12 +20,13 @@ const PORT = 5000;
 
 //Import Routes
 const authRouter = require("./routes/auth");
+const fableRouter = require("./routes/fable");
 
 //Middleware
 app.use(express.json());
 
-//Route Middleware
-app.use("/fablei/user", authRouter);
+app.use("/fablei", authRouter);
+app.use("/fablei", fableRouter);
 
 app.listen(PORT, () =>
 	console.log(`Server up and running at port number ${PORT}`)
