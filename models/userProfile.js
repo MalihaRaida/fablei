@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const userProfileSchema = new mongoose.Schema({
-	userId: {
-		type: String,
+	user_id: {
+		type: Schema.Types.ObjectId,
 		required: true,
 	},
 	fullname: {
@@ -17,6 +17,7 @@ const userProfileSchema = new mongoose.Schema({
 		require: false,
 	},
 	organization: String,
+	profile_image: Buffer,
 });
 
 module.exports = mongoose.model("UserProfile", userProfileSchema);
