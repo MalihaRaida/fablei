@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Chapter = require("./chapter");
 
 const folkTaleSchema = new mongoose.Schema({
-	storyTitle: { type: String, require: true },
-	storyDes: { type: String, require: true },
+	story_title: { type: String, require: true },
+	story_description: { type: String, require: true },
 	author: {
 		fullname: {
 			type: String,
